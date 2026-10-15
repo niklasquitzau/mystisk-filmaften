@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daddy-O Mysterio dag!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..700&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+  html,body{margin:0;height:100%;background:#0b0a09;overflow:hidden}
+  body{display:flex;align-items:center;justify-content:center}
+  button{font-family:inherit;cursor:pointer}
+  button:focus-visible{outline:4px solid #fff3d6;outline-offset:6px}
+  .serif{font-family:'Bodoni Moda','Didot',Georgia,serif}
+  #stage{width:1920px;height:1080px;position:relative;overflow:hidden;flex:none;transform-origin:center center;
+    font-family:'Manrope','Avenir Next','Segoe UI',sans-serif;color:#f4ede1;background:#0b0a09}
+  .bg{position:absolute;inset:0;opacity:0;transition:opacity 1000ms ease}
+  .bg.on{opacity:1}
+  .bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.42;filter:saturate(.9) blur(1px);transform:scale(1.03)}
+  .bg .glow{position:absolute;inset:0}
+  .vignette{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 50%,rgba(0,0,0,0) 45%,rgba(0,0,0,.72) 100%),linear-gradient(90deg,rgba(8,7,6,.55) 0%,rgba(8,7,6,.25) 40%,rgba(8,7,6,.7) 100%)}
+  .frame{position:absolute;inset:0;box-sizing:border-box;padding:56px 96px 48px;display:flex;flex-direction:column;gap:36px}
+  header{display:flex;justify-content:space-between;align-items:center;height:56px}
+  .brand{display:flex;align-items:center;gap:20px}
+  .brand-title{font-size:34px;font-weight:700;letter-spacing:.02em}
+  .brand-sub{font-size:20px;letter-spacing:.22em;text-transform:uppercase;color:#cfc4b2}
+  .ghost{height:64px;padding:0 28px;border-radius:32px;border:2px solid rgba(244,237,225,.4);background:rgba(10,9,8,.35);color:#f4ede1;font-size:22px;font-weight:600;letter-spacing:.04em;display:flex;align-items:center;gap:12px}
+  .case{font-size:30px;font-style:italic;color:#e9dfcd}
+  .case b{font-style:normal;font-weight:700;color:var(--accent)}
+  main{flex:1;min-height:0;display:flex;align-items:center;gap:88px}
+  .poster{position:relative;width:470px;height:705px;flex:none}
+  .poster .line{position:absolute;inset:-18px;border:1.5px solid var(--accent);opacity:.55}
+  .poster .card{position:absolute;inset:0;box-shadow:0 40px 90px rgba(0,0,0,.65);overflow:hidden;background:var(--fallback)}
+  .poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .info{flex:1;min-width:0;display:flex;flex-direction:column;gap:26px}
+  .rise{animation:rise 700ms cubic-bezier(.2,.7,.2,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  @keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+  .kicker{display:flex;flex-wrap:wrap;align-items:center;gap:18px;font-size:22px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .kicker .dot{width:6px;height:6px;border-radius:3px;background:var(--accent)}
+  .kicker .det{color:#e3d9c7}
+  h1{margin:0;line-height:.98;font-weight:800;letter-spacing:-.01em;text-wrap:balance}
+  .tagline{font-style:italic;font-size:36px;color:#efe5d3;line-height:1.25}
+  .chips{display:flex;flex-wrap:wrap;gap:20px}
+  .chip{display:flex;align-items:center;gap:16px;padding:14px 26px 14px 18px;border-radius:18px;background:rgba(10,9,8,.55);border:1px solid rgba(244,237,225,.18)}
+  .chip .v{font-size:40px;font-weight:700;line-height:1}
+  .chip .v small{font-size:22px;font-weight:500;color:#cfc4b2}
+  .chip .l{font-size:17px;letter-spacing:.12em;text-transform:uppercase;color:#cfc4b2;margin-top:6px}
+  .imdb{width:64px;height:36px;border-radius:6px;background:#f2c230;color:#121212;font-weight:800;font-size:19px;display:flex;align-items:center;justify-content:center}
+  .overview{margin:0;font-size:29px;line-height:1.5;color:#ece4d6;max-width:1060px;text-wrap:pretty}
+  .facts{display:flex;flex-wrap:wrap;gap:12px 40px;font-size:22px;color:#d9cfbe}
+  .facts span{color:#a99e8c;letter-spacing:.14em;text-transform:uppercase;font-size:18px;margin-right:12px}
+  footer{display:flex;align-items:center;gap:28px;height:150px}
+  .round{width:80px;height:80px;flex:none;border-radius:40px;border:2px solid rgba(244,237,225,.4);background:rgba(10,9,8,.4);color:#f4ede1;display:flex;align-items:center;justify-content:center}
+  .thumbs{display:flex;gap:18px;align-items:flex-end}
+  .thumb{width:84px;height:126px;padding:0;border:none;border-radius:8px;overflow:hidden;opacity:.6;box-shadow:0 8px 20px rgba(0,0,0,.5);transition:all 350ms ease}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .thumb.on{width:100px;height:150px;opacity:1}
+  .cta{height:96px;padding:0 48px;border-radius:48px;border:none;background:var(--accent);color:#15110c;font-size:30px;font-weight:700;letter-spacing:.02em;display:flex;align-items:center;gap:16px;box-shadow:0 18px 40px rgba(0,0,0,.45)}
+  #verdict{position:absolute;inset:0;background:rgba(6,5,4,.95);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center}
+  #verdict.show{display:flex}
+  #verdict .inner{display:flex;align-items:center;gap:80px;animation:pop 600ms cubic-bezier(.2,.7,.2,1) both}
+  #verdict .vposter{width:400px;height:600px;flex:none;position:relative;overflow:hidden;box-shadow:0 0 0 2px var(--accent),0 50px 120px rgba(0,0,0,.8)}
+  #verdict .vposter img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  #verdict .vk{font-size:26px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  #verdict .vt{font-size:104px;font-weight:800;line-height:1;text-wrap:balance}
+  #verdict .vs{font-style:italic;font-size:38px;color:#efe5d3}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bgs" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="frame">
+    <header>
+      <div class="brand">
+        <svg aria-hidden="true" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6"/></svg>
+        <div>
+          <div class="brand-title serif">Daddy-O Mysterio dag!</div>
+          <div class="brand-sub">Seks sager. Én dom.</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:24px">
+        <button type="button" class="ghost" id="surprise">
+          <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.2"/><circle cx="16" cy="16" r="1.2"/><circle cx="12" cy="12" r="1.2"/></svg>
+          Overrask os
+        </button>
+        <div class="case serif">Sag <b id="caseNo">01</b> af 06</div>
+      </div>
+    </header>
+    <main>
+      <div class="poster">
+        <div class="line" aria-hidden="true"></div>
+        <div class="card"><img id="poster" alt=""></div>
+      </div>
+      <div class="info" id="info">
+        <div class="kicker"><span id="series"></span><span class="dot" aria-hidden="true"></span><span class="det" id="detective"></span></div>
+        <h1 class="serif" id="title"></h1>
+        <div class="tagline serif" id="tagline"></div>
+        <div class="chips">
+          <div class="chip">
+            <svg aria-hidden="true" width="44" height="44" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="8.5" fill="#e0402b"/><path d="M12 5.2c-1.2-1.6-3-2.1-4.6-1.6 1.4.3 2.4 1.1 3 2.3M12 5.2c1-1.4 2.7-2 4.4-1.4-1.3.4-2.4 1.2-3 2.4" stroke="#3f8f3a" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+            <div><div class="v" id="rt"></div><div class="l">Rotten Tomatoes</div></div>
+          </div>
+          <div class="chip">
+            <div class="imdb" aria-hidden="true">IMDb</div>
+            <div><div class="v"><span id="imdb"></span><small> / 10</small></div><div class="l">IMDb-bedømmelse</div></div>
+          </div>
+          <div class="chip">
+            <svg aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            <div><div class="v" id="runtime"></div><div class="l">Spilletid · <span id="minutes"></span> min.</div></div>
+          </div>
+        </div>
+        <p class="overview" id="overview"></p>
+        <div class="facts">
+          <div><span>År</span><b id="year" style="font-weight:400"></b></div>
+          <div><span>Genre</span><b id="genres" style="font-weight:400"></b></div>
+          <div><span>Medvirkende</span><b id="cast" style="font-weight:400"></b></div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <button type="button" class="round" id="prev" aria-label="Forrige film"><svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="thumbs" id="thumbs"></div>
+      <button type="button" class="round" id="next" aria-label="Næste film"><svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+      <div style="flex:1"></div>
+      <button type="button" class="cta" id="choose">
+        <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+        Den skal vi se
+      </button>
+    </footer>
+  </div>
+  <div id="verdict" role="dialog" aria-modal="true" aria-labelledby="vtitle">
+    <div class="inner">
+      <div class="vposter"><img id="vposter" alt=""></div>
+      <div style="display:flex;flex-direction:column;gap:28px;max-width:900px">
+        <div class="vk">Dommen er faldet</div>
+        <div class="vt serif" id="vtitle"></div>
+        <div class="vs serif">Aftenens sag varer <span id="vruntime"></span>. Find snacksene frem.</div>
+        <div><button type="button" class="ghost" id="back" style="height:80px;padding:0 40px;border-radius:40px;font-size:26px">Tilbage til sagsmapperne</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const MOVIES = [
+  { id:'knives-out', poster:'pThyQovXQrw2m0s9x82twj48Jq4', backdrop:'4HWAQu28e2yaWrtupFPGFkdNU7V', title:'Knives Out', series:'Knives Out', detective:'Benoit Blanc', year:'2019',
+    runtime:'2 t 10 min', minutes:130, rt:'97 %', imdb:'7,9', genres:'Mysterie · Komedie · Krimi',
+    cast:'Daniel Craig, Chris Evans, Ana de Armas, Jamie Lee Curtis',
+    tagline:'Et moderne twist på en klassisk whodunit.',
+    overview:'Da den berømte krimiforfatter Harlan Thrombey findes død på sin herregård lige efter sin 85-årsfødselsdag, bliver den nysgerrige og elegante detektiv Benoit Blanc mystisk nok hyret til at efterforske sagen. Fra Harlans dysfunktionelle familie til hans trofaste personale må Blanc finde vej gennem et net af falske spor og selviske løgne.',
+    accent:'#e2a05a', base:'#1d0f0a', glow:'radial-gradient(80% 70% at 22% 40%, rgba(184,92,38,0.5), rgba(0,0,0,0) 70%), radial-gradient(60% 60% at 85% 85%, rgba(120,40,24,0.45), rgba(0,0,0,0) 70%)' },
+  { id:'glass-onion', poster:'vDGr1YdrlfbU9wxTOdpf3zChmv9', backdrop:'y3uOfZAYwLkbvhunswBCskNMrfI', title:'Glass Onion', series:'A Knives Out Mystery', detective:'Benoit Blanc', year:'2022',
+    runtime:'2 t 19 min', minutes:139, rt:'91 %', imdb:'7,1', genres:'Mysterie · Komedie · Krimi',
+    cast:'Daniel Craig, Edward Norton, Janelle Monáe, Kathryn Hahn',
+    tagline:'En detektiv. Et mysterium. En samling af verdens skarpeste hjerner.',
+    overview:'Den verdensberømte detektiv Benoit Blanc rejser til Grækenland for at skrælle lagene af et mysterium omkring en tech-milliardær og hans broget sammensatte vennekreds, samlet til en mordmysterie-weekend på en privat ø – indtil nogen bliver fundet død for alvor.',
+    accent:'#f0c95c', base:'#04232b', glow:'radial-gradient(80% 70% at 22% 40%, rgba(20,150,170,0.45), rgba(0,0,0,0) 70%), radial-gradient(60% 60% at 85% 15%, rgba(230,190,80,0.25), rgba(0,0,0,0) 70%)' },
+  { id:'wake-up-dead-man', poster:'iV9LM8aUb83BjCCx2RUnKE5sSQg', backdrop:'fiRDzpcJe7qz3yIR43hdXIE3NHv', title:'Wake Up Dead Man', series:'A Knives Out Mystery', detective:'Benoit Blanc', year:'2025',
+    runtime:'2 t 24 min', minutes:144, rt:'92 %', imdb:'7,3', genres:'Mysterie · Komedie · Krimi',
+    cast:'Daniel Craig, Josh O’Connor, Glenn Close, Josh Brolin',
+    tagline:'En fuldkommen umulig forbrydelse.',
+    overview:'Da den unge præst Jud Duplenticy sendes ud for at assistere den karismatiske ildsjæl monsignor Jefferson Wicks, står det hurtigt klart, at ikke alt er, som det skal være i kirken. Efter et pludseligt og tilsyneladende umuligt mord slår politichef Geraldine Scott sig sammen med Benoit Blanc for at opklare en gåde, der trodser al logik.',
+    accent:'#e2645a', base:'#150a1a', glow:'radial-gradient(70% 70% at 20% 30%, rgba(150,30,40,0.5), rgba(0,0,0,0) 70%), radial-gradient(60% 60% at 85% 80%, rgba(70,40,140,0.45), rgba(0,0,0,0) 70%)' },
+  { id:'orient-express', poster:'7GtdJU6iAg6fjQu3E3zta3bIAQh', backdrop:'IQyEvPTYvrzsa7qstRj6VLQupr', title:'Mordet i Orientekspressen', series:'Agatha Christie', detective:'Hercule Poirot', year:'2017',
+    runtime:'1 t 54 min', minutes:114, rt:'60 %', imdb:'6,5', genres:'Mysterie · Krimi · Drama',
+    cast:'Kenneth Branagh, Michelle Pfeiffer, Johnny Depp, Daisy Ridley',
+    tagline:'Tidernes største mysterium er kun lige begyndt.',
+    overview:'Den geniale belgiske detektiv Hercule Poirot efterforsker mordet på en amerikansk rigmand om bord på Orientekspressen. Indesneet i bjergene med en vogn fuld af fremmede har hver eneste passager en hemmelighed – og alle er mistænkte.',
+    accent:'#d8b46a', base:'#08142a', glow:'radial-gradient(80% 70% at 22% 40%, rgba(60,110,180,0.4), rgba(0,0,0,0) 70%), radial-gradient(50% 50% at 85% 85%, rgba(200,160,90,0.22), rgba(0,0,0,0) 70%)' },
+  { id:'death-on-the-nile', poster:'kVr5zIAFSPRQ57Y1zE7KzmhzdMQ', backdrop:'lRbDyjI7HEaXxflFQbYpqHRGFBJ', title:'Døden på Nilen', series:'Agatha Christie', detective:'Hercule Poirot', year:'2022',
+    runtime:'2 t 7 min', minutes:127, rt:'62 %', imdb:'6,3', genres:'Mysterie · Krimi · Drama',
+    cast:'Kenneth Branagh, Gal Gadot, Annette Bening, Emma Mackey',
+    tagline:'Mordet var kun begyndelsen.',
+    overview:'Den belgiske mesterdetektiv Hercule Poirots ferie i Egypten om bord på et glamourøst flodskib udvikler sig til en skræmmende jagt på en morder, da et billedskønt par får deres idylliske bryllupsrejse brat og tragisk afbrudt.',
+    accent:'#5cc8c0', base:'#24160a', glow:'radial-gradient(80% 70% at 22% 40%, rgba(215,150,60,0.45), rgba(0,0,0,0) 70%), radial-gradient(60% 60% at 85% 85%, rgba(30,140,140,0.32), rgba(0,0,0,0) 70%)' },
+  { id:'haunting-in-venice', poster:'l6iwxT0NbVw6QiF08YTIuTnXS82', backdrop:'qB9wshRySHgN2MibLOlsW6YalqD', title:'A Haunting in Venice', series:'Agatha Christie', detective:'Hercule Poirot', year:'2023',
+    runtime:'1 t 43 min', minutes:103, rt:'75 %', imdb:'6,5', genres:'Mysterie · Gyser · Thriller',
+    cast:'Kenneth Branagh, Tina Fey, Michelle Yeoh, Jamie Dornan',
+    tagline:'De døde fortæller ingen historier.',
+    overview:'Den berømte detektiv Hercule Poirot, nu pensioneret og i selvvalgt eksil i Venedig, deltager modvilligt i en halloween-seance i et forfaldent, hjemsøgt palazzo. Da en af gæsterne bliver myrdet, kastes han ud i en uhyggelig verden af skygger og hemmeligheder.',
+    accent:'#a8d4a0', base:'#08130f', glow:'radial-gradient(70% 70% at 20% 35%, rgba(40,110,80,0.45), rgba(0,0,0,0) 70%), radial-gradient(50% 50% at 80% 80%, rgba(210,150,60,0.28), rgba(0,0,0,0) 70%)' }
+];
+// Images come straight from The Movie Database (TMDB) image CDN
+const TMDB = 'https://image.tmdb.org/t/p/';
+const posterOf = m => TMDB + 'w780/' + m.poster + '.jpg';
+const backdropOf = m => TMDB + 'w1280/' + m.backdrop + '.jpg';
+const fallbackOf = m => 'linear-gradient(160deg, ' + m.accent + ' 0%, ' + m.base + ' 75%)';
+const $ = id => document.getElementById(id);
+const stage = $('stage');
+let index = 0;
+
+// Scale the 1920×1080 stage to fit any screen (TV, laptop, phone)
+function fit() {
+  const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+  stage.style.transform = 'scale(' + s + ')';
+}
+window.addEventListener('resize', fit); fit();
+
+// Build backgrounds + thumbnails once
+MOVIES.forEach((m, i) => {
+  const bg = document.createElement('div');
+  bg.className = 'bg'; bg.style.background = m.base;
+  bg.innerHTML = '<img alt="" src="' + backdropOf(m) + '"><div class="glow"></div>';
+  bg.querySelector('.glow').style.background = m.glow;
+  $('bgs').appendChild(bg);
+
+  const t = document.createElement('button');
+  t.type = 'button'; t.className = 'thumb';
+  t.setAttribute('aria-label', 'Vis ' + m.title);
+  t.style.background = fallbackOf(m);
+  t.innerHTML = '<img alt="" src="' + posterOf(m) + '">';
+  t.addEventListener('click', () => go(i));
+  $('thumbs').appendChild(t);
+});
+
+function render() {
+  const m = MOVIES[index];
+  stage.style.setProperty('--accent', m.accent);
+  stage.style.setProperty('--fallback', fallbackOf(m));
+  $('caseNo').textContent = '0' + (index + 1);
+  $('poster').src = posterOf(m); $('poster').alt = 'Plakat til ' + m.title;
+  $('series').textContent = m.series;
+  $('detective').textContent = 'Detektiv ' + m.detective;
+  $('title').textContent = m.title;
+  $('title').style.fontSize = m.title.length > 20 ? '92px' : '124px';
+  $('tagline').textContent = '»' + m.tagline + '«';
+  $('rt').textContent = m.rt; $('imdb').textContent = m.imdb;
+  $('runtime').textContent = m.runtime; $('minutes').textContent = m.minutes;
+  $('overview').textContent = m.overview;
+  $('year').textContent = m.year; $('genres').textContent = m.genres; $('cast').textContent = m.cast;
+  document.querySelectorAll('.bg').forEach((el, i) => el.classList.toggle('on', i === index));
+  document.querySelectorAll('.thumb').forEach((el, i) => {
+    const on = i === index;
+    el.classList.toggle('on', on);
+    el.setAttribute('aria-pressed', on);
+    el.style.boxShadow = on ? '0 0 0 3px ' + MOVIES[i].accent + ', 0 14px 30px rgba(0,0,0,0.6)' : '';
+  });
+  const info = $('info'); info.classList.remove('rise'); void info.offsetWidth; info.classList.add('rise');
+  $('vposter').src = posterOf(m); $('vposter').alt = 'Plakat til ' + m.title;
+  $('vtitle').textContent = m.title; $('vruntime').textContent = m.runtime;
+  $('verdict').querySelector('.vposter').style.background = fallbackOf(m);
+}
+function go(i) { index = ((i % 6) + 6) % 6; closeVerdict(); render(); }
+function openVerdict() { $('verdict').classList.add('show'); $('back').focus(); }
+function closeVerdict() { $('verdict').classList.remove('show'); }
+
+$('prev').addEventListener('click', () => go(index - 1));
+$('next').addEventListener('click', () => go(index + 1));
+$('surprise').addEventListener('click', () => go(index + 1 + Math.floor(Math.random() * 5)));
+$('choose').addEventListener('click', openVerdict);
+$('back').addEventListener('click', () => { closeVerdict(); $('choose').focus(); });
+
+// TV remote / keyboard: left/right to browse, Escape to close the verdict
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') { go(index + 1); e.preventDefault(); }
+  else if (e.key === 'ArrowLeft') { go(index - 1); e.preventDefault(); }
+  else if (e.key === 'Escape' || e.key === 'Backspace') { closeVerdict(); }
+});
+
+render();
+</script>
+</body>
+</html>
